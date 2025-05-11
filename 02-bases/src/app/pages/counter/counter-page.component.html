@@ -1,0 +1,20 @@
+<style>
+    .reset-button {
+        background-color: rgb(208, 65, 65);
+        color: white;
+        border-radius: 12px;
+        padding: 8px 16px;
+        border: 1px solid black;
+    }
+    .reset-button:hover {
+        background-color: rgb(32, 31, 31);
+    }
+</style>
+
+<main class="container">
+    <h1>Counter Page: {{ counter }}</h1>
+    <h1>Counter signal: {{ counterSignal() }}</h1>
+    <button (click)="increaseBy(1)">+1</button>
+    <button (click)="increaseBy(-1)">-1</button>
+    <button (click)="resetCounter()" class="reset-button">Reset</button>
+</main>
