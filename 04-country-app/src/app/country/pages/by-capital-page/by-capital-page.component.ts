@@ -2,13 +2,14 @@ import {
     ChangeDetectionStrategy,
     Component,
     inject,
+    resource,
     signal,
 } from '@angular/core'
+import { rxResource } from '@angular/core/rxjs-interop'
 import { SearchInputComponent } from '../../components/search-input/search-input.component'
 import { ListComponent } from '../../components/list/list.component'
 import { CountryService } from '../../services/country.service'
-import { RESTCountry } from '../../interfaces/rest-countries.interface'
-import { Country } from '../../interfaces/country.interface'
+import { of } from 'rxjs'
 
 @Component({
     selector: 'app-by-capital-page',
@@ -18,7 +19,28 @@ import { Country } from '../../interfaces/country.interface'
 })
 export class ByCapitalPageComponent {
     countryService = inject(CountryService)
+    query = signal('')
 
+    countryResource = rxResource({
+        request: () => ({ query: this.query() }),
+        loader: ({ request }) => {
+            if (!request.query) return of([]) //empty array observable
+            return this.countryService.searchByCapital(request.query)
+        },
+    })
+
+    /*countryResource = resource({
+        request: () => ({ query: this.query() }),
+        loader: async ({ request }) => {
+            if (!request.query) return []
+
+            return await firstValueFrom(
+                this.countryService.searchByCapital(request.query)
+            )
+        },
+    })
+*/
+    /*
     isLoading = signal(false)
     isError = signal<string | null>(null)
     countries = signal<Country[]>([])
@@ -42,4 +64,5 @@ export class ByCapitalPageComponent {
             },
         })
     }
+        */
 }

@@ -1,1 +1,31 @@
-<p>country-page works!</p>,
+@if(countryResource.error()) {
+<country-not-found />
+}
+
+@if(countryResource.isLoading()) {
+<div class="loading loading-spinner loading-lg"></div>
+}
+
+@if( countryResource.hasValue() ) {
+<div class="stats shadow">
+    <div class="stat">
+
+        <div class="stat-title">Population</div>
+        <div class="stat-value">{{countryResource.value().population | number}}</div>
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-title">Flag</div>
+        <div class="stat-value">{{ countryResource.value().flag }}</div>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-title">Capital</div>
+        <div class="stat-value">{{ countryResource.value().capital}}</div>
+
+    </div>
+</div>
+}
