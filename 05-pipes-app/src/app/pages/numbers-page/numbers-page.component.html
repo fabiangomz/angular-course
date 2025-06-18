@@ -1,0 +1,25 @@
+<section>
+    <h1 class="text-2xl">Basic Pipes</h1>
+    <h3>Included pipes in Angular</h3>
+</section>
+
+<div class="stats stats-vertical lg:stats-horizontal shadow">
+    <div class="stat">
+        <div class="stat-title">Number Pipe:'1.2-4'</div>
+        <div class="stat-value">{{ totalSells() | number: "1.2-2"}}</div>
+        <div class="stat-desc">{{ totalSells()}}</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-title">Currency Pipe</div>
+        <div class="stat-value">{{ totalSells() | currency: "EUR" : "symbol-narrow": '1.4-4'}}</div>
+        <div class="stat-desc">{{percent()}}</div>
+    </div>
+    <div class="stat">
+        <div class="stat-title">Percent Pipe</div>
+        <div class="stat-value">{{ percent() | percent}}</div>
+        <div class="stat-desc">{{percent()}}</div>
+    </div>
+
+
+</div>
