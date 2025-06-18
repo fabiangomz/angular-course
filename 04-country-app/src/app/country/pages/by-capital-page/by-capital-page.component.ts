@@ -1,7 +1,10 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    Inject,
     inject,
+    input,
+    linkedSignal,
     resource,
     signal,
 } from '@angular/core'
@@ -10,6 +13,7 @@ import { SearchInputComponent } from '../../components/search-input/search-input
 import { ListComponent } from '../../components/list/list.component'
 import { CountryService } from '../../services/country.service'
 import { of } from 'rxjs'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
     selector: 'app-by-capital-page',
@@ -19,12 +23,24 @@ import { of } from 'rxjs'
 })
 export class ByCapitalPageComponent {
     countryService = inject(CountryService)
-    query = signal('')
+    initialValue = input<string>('') // Default value for the search input
+
+    activatedRoute = inject(ActivatedRoute)
+
+    router = inject(Router)
+    queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') || ''
+
+    query = linkedSignal(() => this.queryParam)
 
     countryResource = rxResource({
         request: () => ({ query: this.query() }),
         loader: ({ request }) => {
+            console.log('Requesting countries by capital:', request.query)
             if (!request.query) return of([]) //empty array observable
+
+            this.router.navigate(['/country/by-capital'], {
+                queryParams: { query: request.query },
+            })
             return this.countryService.searchByCapital(request.query)
         },
     })

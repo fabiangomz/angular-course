@@ -1,1 +1,22 @@
-<country-list [countries]="[]" />
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Countries by Region</h1>
+    <p class="mb-4">Select a region to view the countries within it.</p>
+
+
+    <div class="tabs tabs-box">
+        @for (region of regions; track $index) {
+        <input type="radio" name="region" class="tab" [attr.aria-label]="region" (change)="query.set(region)"
+            [checked]="query() === region" />
+
+
+        }
+
+    </div>
+    <!-- @for (region of regions; track $index) {
+        <button class="">{{ region }}</button>
+
+        } -->
+
+</div>
+
+<country-list [countries]="countryResource.value() ?? []" [errorMessage]="countryResource.error()" />
