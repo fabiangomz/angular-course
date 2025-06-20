@@ -63,4 +63,23 @@
         <div class="stat-value">{{ customDate() | date: 'EEEE d, MMMM'}}</div>
         <div class="stat-desc">{{ nameLower()}}</div>
     </div>
+
+
 </div>
+
+<h1>locale actual {{ currentLocale() }}</h1>
+<button class="btn btn-primary" (click)="changeLocale('fr')">
+    Changer en français
+</button>
+
+<button class="btn btn-primary" (click)="changeLocale('ja')">
+    日本語に変更する
+</button>
+
+<button class="btn btn-primary" (click)="changeLocale('en')">
+    change to english
+</button>
+
+<button class="btn btn-primary" (click)="changeLocale('es')">
+    cambiar a español
+</button>
