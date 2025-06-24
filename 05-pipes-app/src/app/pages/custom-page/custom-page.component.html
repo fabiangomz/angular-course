@@ -6,8 +6,58 @@
 <div class="stats shadow">
     <div class="stat">
         <div class="stat-title">Total Clients</div>
-        <div class="stat-value">99999</div>
-        <div class="stat-desc">Clients in the system</div>
+        <div class="stat-value">{{ name() | toggleCase:toggle()}} </div>
+        <div class="stat-desc">{{ name()}}</div>
+    </div>
+    <button class="btn btn-primary" (click)="toggleCase()">Toggle Case</button>
+
+</div>
+
+<div class="divider my-2"></div>
+
+<section>
+    <h2 class="text-2xl">Personalised Pipes</h2>
+    <h3 class="text-xl">Sorting by {{ searchQuery() }} and sorted by {{ sortBy() }} </h3>
+    <div class="flex gap-2 justify-end w-full">
+
+        <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Search by name" #txtSearch
+            (input)="searchQuery.set(txtSearch.value)" />
+        <div class="flex flex-1"></div>
+        <button class="btn btn-primary" (click)="sortBy.set('name')">By name</button>
+        <button class="btn btn-primary" (click)="sortBy.set('canFly')">By CanFly </button>
+        <button class="btn btn-primary" (click)="sortBy.set('color')">By Colour</button>
+        <button class="btn btn-primary" (click)="sortBy.set('creator')">By Creator</button>
     </div>
 
+</section>
+<div class="overflow-x-auto w-full">
+    <table class="table">
+        <!-- head -->
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Can Fly</th>
+                <th>Colour</th>
+                <th>Creator</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- row 1 -->
+            @for (hero of heros() | heroFilter:searchQuery() |heroSortBy:sortBy(); track hero.id; let i = $index) {
+            <tr>
+                <th>{{i+ 1}}</th>
+                <td>{{hero.name}}</td>
+                <td>
+                    <span [class.text-success]="hero.canFly" [class.text-warning]="!hero.canFly">
+                        {{hero.canFly | canFly }}
+                    </span>
+                </td>
+                <td><span [style.color]="hero.color | heroTextColor">{{hero.color | color | titlecase }}</span></td>
+                <td>{{hero.creator | heroCreator }}</td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
 </div>
