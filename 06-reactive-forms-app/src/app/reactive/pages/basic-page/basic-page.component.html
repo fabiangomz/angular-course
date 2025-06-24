@@ -1,0 +1,101 @@
+<h2>Reactivos: Básicos</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form autocomplete="off" [formGroup]="form" (ngSubmit)="formUtils.onSave(form)">
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Producto</label>
+                <div class="col-sm-9">
+
+                    <input type="text" class="form-control" placeholder="Nombre del producto" formControlName="name">
+
+                    @if (formUtils.isValidField(form, 'name')) {
+                    <span class="form-text text-danger">
+                        <!-- Debe de ser de 3 letras -->
+                        {{ formUtils.getFieldError(form, 'name') }}
+                    </span>
+                    }
+
+                </div>
+            </div>
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Precio</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" placeholder="Precio del producto" formControlName="price">
+                    @if (formUtils.isValidField(form, 'price')) {
+                    <span class="form-text text-danger">
+                        <!-- Debe de ser de 3 letras -->
+                        {{ formUtils.getFieldError(form, 'price') }}
+                    </span>
+                    }
+                </div>
+            </div>
+
+            <!-- Campo de existencias -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Existencias</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" placeholder="Existencias del producto"
+                        formControlName="inStorage">
+
+                    @if (formUtils.isValidField(form, 'inStorage')) {
+                    <span class="form-text text-danger">
+                        <!-- Debe de ser de 3 letras -->
+                        {{ formUtils.getFieldError(form, 'inStorage') }}
+                    </span>
+                    }
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary float-end">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col">
+
+        <span>Valid</span>
+        <pre>{{ form.valid| json }}</pre>
+
+        <span>Pristine</span>
+        <pre>{{ form.pristine| json }}</pre>
+
+        <span>Touched</span>
+        <pre>{{ form.touched| json }}</pre>
+
+        <span>Value</span>
+        <pre>{{ form.value| json }}</pre>
+
+        <span>Name Errors</span>
+        <pre>{{ form.controls["name"].errors | json }}</pre>
+        <pre>{{ form.controls["price"].errors | json }}</pre>
+        <pre>{{ form.controls["inStorage"].errors | json }}</pre>
+
+        <span>Precio</span>
+        <pre>{{ form.controls["price"].value | json }}</pre>
+
+        <span>Producto</span>
+        <pre>{{ form.controls["name"].value | json }}</pre>
+    </div>
+</div>
