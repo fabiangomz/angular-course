@@ -22,4 +22,13 @@ export class CountryService {
         const url = `${this.baseUrl}/region/${region}?fileds=name,cca3,borders`
         return this.http.get<Country[]>(url)
     }
+
+    getCountryByAlphaCode(alphaCode: string): Observable<Country> {
+        const url = `${this.baseUrl}/alpha/${alphaCode}?fields=name,cca3,borders`
+        return this.http.get<Country>(url)
+    }
+
+    getCountryBordersByCode(borders: string[]): Observable<Country[]> {
+        return of([])
+    }
 }
