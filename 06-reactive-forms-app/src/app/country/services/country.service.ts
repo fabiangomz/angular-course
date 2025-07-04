@@ -19,7 +19,7 @@ export class CountryService {
 
         console.log({ region })
 
-        const url = `${this.baseUrl}/region/${region}?fileds=name,cca3,borders`
+        const url = `${this.baseUrl}/region/${region}?fields=name,cca3,borders`
         return this.http.get<Country[]>(url)
     }
 

@@ -27,11 +27,9 @@ export class CountryPageComponent {
 
     onFormChanged = effect((onCleanup) => {
         const regionSubscription = this.onRegionChanged()
-        const countrySubscription = this.onCountryChanged()
 
         onCleanup(() => {
             regionSubscription?.unsubscribe()
-            countrySubscription?.unsubscribe()
         })
     })
 
